@@ -37,13 +37,16 @@ const SHIPPING_PRICE: u64 = 50;
 #[boilermates("OrderRequest", "OrderResponse")]
 #[boilermates(attr_for("OrderRequest", "#[derive(Clone, Debug, Deserialize)]"))]
 #[boilermates(attr_for("OrderResponse", "#[derive(Clone, Debug, Serialize)]"))]
-#[derive(Clone, Debug, Deserialize, Serialize)]
+#[boilermates(skip_field_attrs("testing"))]
+#[derive(Clone, Debug, Deserialize, Serialize, Testing)]
 struct Order {
     user_id: u64,
     amount: u64,
     address: String,
     #[serde(default)]
     comments: Option<String>,
+    
+    #[testing(this_is_an_example)]
     shipping_required: bool,
 
     #[boilermates(not_in("OrderRequest"))]
